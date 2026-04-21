@@ -3,10 +3,6 @@ import "./globals.css";
 
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 
-import { AppSidebar } from "@/components/app-sidebar";
-import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/animate-ui/components/radix/sidebar";
-import { Separator } from "@/components/ui/separator";
-
 export const metadata: Metadata = {
   title: "Wine & Spirits CRM",
   description: "Wine & Spirits CRM",
@@ -20,18 +16,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full antialiased">
       <body className="min-h-full flex flex-col">
-        <AntdRegistry>
-          <SidebarProvider>
-            <AppSidebar />
-            <SidebarInset className="min-w-0 overflow-x-hidden">
-              <header className="flex h-14 shrink-0 items-center gap-2 border-b px-4">
-                <SidebarTrigger className="-ml-1" />
-                <span className="text-sm font-medium">Wine & Spirits CRM</span>
-              </header>
-              <div className="flex min-w-0 flex-1 flex-col">{children}</div>
-            </SidebarInset>
-          </SidebarProvider>
-        </AntdRegistry>
+        <AntdRegistry>{children}</AntdRegistry>
       </body>
     </html>
   );
