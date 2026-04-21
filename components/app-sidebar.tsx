@@ -3,7 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Calculator, Settings, LifeBuoy, Wine } from "lucide-react";
+import { Home, Calculator, Settings, LifeBuoy, Wine, Package } from "lucide-react";
 
 import {
   Sidebar,
@@ -19,7 +19,7 @@ import {
   SidebarRail,
 } from "@/components/animate-ui/components/radix/sidebar";
 
-type NavItem = {
+type NavItem = { 
   title: string;
   url: string;
   icon: React.ComponentType<{ className?: string; strokeWidth?: number }>;
@@ -27,6 +27,7 @@ type NavItem = {
 
 const mainNav: NavItem[] = [
   { title: "Dashboard", url: "/", icon: Home },
+  { title: "Inventory", url: "/inventory", icon: Package },
   { title: "Price Simulator", url: "/price-simulator", icon: Calculator },
 ];
 
