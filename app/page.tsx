@@ -79,9 +79,9 @@ export default async function DashboardPage() {
     kpi.casesYoyAbs > 0 ? 'positive' : kpi.casesYoyAbs < 0 ? 'negative' : 'neutral';
 
   return (
-    <div className="flex flex-1 flex-col bg-zinc-50 dark:bg-black">
+    <div className="flex min-w-0 flex-1 flex-col bg-zinc-50 dark:bg-black">
       {/* Dashboard KPIs + chart */}
-      <div className="flex flex-col gap-4 px-6 pt-6">
+      <div className="flex min-w-0 flex-col gap-4 px-6 pt-6">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
           <KpiCard
             title="YTD Sales"
@@ -121,8 +121,8 @@ export default async function DashboardPage() {
       </div>
 
       {/* Inventory tabs */}
-      <div className="bg-white px-6 pt-6 pb-8 dark:bg-black">
-        <Tabs defaultValue="inventory" className="gap-4">
+      <div className="min-w-0 bg-white px-6 pt-6 pb-8 dark:bg-black">
+        <Tabs defaultValue="inventory" className="min-w-0 gap-4">
           <TabsList className="h-10 w-fit gap-1 rounded-[6px] p-0.5">
             {TABS.map(({ value, label, icon: Icon }) => (
               <TabsTab key={value} value={value} className="px-3 text-sm">
@@ -134,7 +134,7 @@ export default async function DashboardPage() {
 
           <TabsPanels>
             <TabsPanel value="inventory">
-              <div className="bg-white py-6 dark:bg-black">
+              <div className="min-w-0 bg-white py-6 dark:bg-black">
                 <div className="mb-4">
                   <h1 className="text-xl font-semibold text-zinc-900 dark:text-zinc-50">
                     Inventory
@@ -143,7 +143,9 @@ export default async function DashboardPage() {
                     Inventory + Sales Metrics
                   </p>
                 </div>
-                <InventoryTable data={rows} />
+                <div className="w-full overflow-hidden rounded-md">
+                  <InventoryTable data={rows} />
+                </div>
               </div>
             </TabsPanel>
 

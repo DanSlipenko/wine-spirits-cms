@@ -9,8 +9,8 @@ export type YoySalesPoint = {
   lastYearSales: number;
 };
 
-const TEAL = "#1f8c88";
-const TEAL_LIGHT = "#4fb0ad";
+const BLUE = "#2563eb";
+const BLUE_LIGHT = "#93c5fd";
 
 const formatDollars = (n: number) =>
   `$ ${new Intl.NumberFormat("en-US", {
@@ -40,8 +40,8 @@ export function YoySalesChart({
       <div className="mb-3 flex items-center justify-between">
         <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-50">YoY Sales Trend</h3>
         <div className="flex items-center gap-3 text-xs text-zinc-600 dark:text-zinc-400">
-          <LegendSwatch color={TEAL} label={`${currentYear}`} />
-          <LegendSwatch color={TEAL_LIGHT} label={`${lastYear}`} />
+          <LegendSwatch color={BLUE} label={`${currentYear}`} />
+          <LegendSwatch color={BLUE_LIGHT} label={`${lastYear}`} />
         </div>
       </div>
 
@@ -58,11 +58,11 @@ export function YoySalesChart({
               width={90}
             />
             <Tooltip
-              cursor={{ fill: "rgba(31,140,136,0.06)" }}
+              cursor={{ fill: "rgba(37,99,235,0.06)" }}
               formatter={(v) => formatDollars(Number(v))}
               contentStyle={{ fontSize: 12, borderRadius: 4 }}
             />
-            <Bar dataKey="currentYearSales" name={`${currentYear}`} fill={TEAL} radius={[2, 2, 0, 0]}>
+            <Bar dataKey="currentYearSales" name={`${currentYear}`} fill={BLUE} radius={[2, 2, 0, 0]}>
               <LabelList
                 dataKey="currentYearSales"
                 position="insideTop"
@@ -72,7 +72,7 @@ export function YoySalesChart({
                 style={{ fill: "#fff", fontSize: 10, fontWeight: 500 }}
               />
             </Bar>
-            <Bar dataKey="lastYearSales" name={`${lastYear}`} fill={TEAL_LIGHT} radius={[2, 2, 0, 0]}>
+            <Bar dataKey="lastYearSales" name={`${lastYear}`} fill={BLUE_LIGHT} radius={[2, 2, 0, 0]}>
               <LabelList
                 dataKey="lastYearSales"
                 position="top"

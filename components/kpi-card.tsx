@@ -10,11 +10,11 @@ type KpiCardProps = {
   className?: string;
 };
 
-const TEAL = "#1f8c88";
+const BLUE = "#2563eb";
 
 export function KpiCard({ title, value, delta, deltaLabel, deltaTone = "neutral", className }: KpiCardProps) {
   const deltaColor =
-    deltaTone === "positive" ? "text-emerald-600"
+    deltaTone === "positive" ? "text-sky-600"
     : deltaTone === "negative" ? "text-rose-600"
     : "text-zinc-500";
 
@@ -26,7 +26,7 @@ export function KpiCard({ title, value, delta, deltaLabel, deltaTone = "neutral"
       )}>
       <div className="text-sm font-medium text-zinc-600 dark:text-zinc-400">{title}</div>
       <div className="mt-2 flex items-start gap-1">
-        <span className="text-3xl font-semibold leading-none tracking-tight" style={{ color: TEAL }}>
+        <span className="text-3xl font-semibold leading-none tracking-tight" style={{ color: BLUE }}>
           {value}
         </span>
         {delta && (
