@@ -1,16 +1,19 @@
-import { connectToDatabase } from '@/lib/mongodb';
-import { Inventory } from '@/models';
-import { InventoryTable, type InventoryRow } from '@/components/inventory-table';
+import { LayoutGrid, Package, ShoppingCart, TrendingUp, Users, Calendar } from "lucide-react";
 
-export const dynamic = 'force-dynamic';
+import { connectToDatabase } from "@/lib/mongodb";
+import { Inventory } from "@/models";
+import { Tabs, TabsList, TabsTab, TabsPanels, TabsPanel } from "@/components/animate-ui/components/base/tabs";
+import { InventoryTable, type InventoryRow } from "@/components/inventory-table";
+
+export const dynamic = "force-dynamic";
 
 const TABS = [
-  'Inventory',
-  'Open Sales Orders',
-  'YoY Sales by Item',
-  'YoY Sales by Customer',
-  'YoY Sales by Month',
-  'Monthly Depletions',
+  { value: "inventory", label: "Inventory", icon: Package },
+  { value: "open-sales-orders", label: "Open Sales Orders", icon: ShoppingCart },
+  { value: "yoy-by-item", label: "YoY Sales by Item", icon: TrendingUp },
+  { value: "yoy-by-customer", label: "YoY Sales by Customer", icon: Users },
+  { value: "yoy-by-month", label: "YoY Sales by Month", icon: Calendar },
+  { value: "monthly-depletions", label: "Monthly Depletions", icon: LayoutGrid },
 ];
 
 async function getInventory(): Promise<InventoryRow[]> {
@@ -35,38 +38,50 @@ async function getInventory(): Promise<InventoryRow[]> {
   }));
 }
 
+function EmptyPanel({ title }: { title: string }) {
+  return (
+    <div className="flex min-h-[360px] flex-1 items-center justify-center rounded-md border border-dashed text-sm text-muted-foreground">
+      {title} — coming soon
+    </div>
+  );
+}
+
 export default async function Home() {
   const rows = await getInventory();
 
   return (
     <div className="flex flex-1 flex-col bg-zinc-50 dark:bg-black">
-      <div className="border-b bg-white px-6 pt-4 dark:bg-black">
-        <div className="flex flex-wrap items-center gap-1">
-          {TABS.map((tab, i) => (
-            <button
-              key={tab}
-              className={`flex items-center gap-2 rounded-t-sm border border-b-0 px-4 py-2 text-sm font-medium transition-colors ${
-                i === 0
-                  ? 'border-zinc-200 bg-white text-zinc-900 dark:border-zinc-800 dark:bg-zinc-950 dark:text-white'
-                  : 'border-transparent bg-transparent text-zinc-500 hover:text-zinc-900 dark:hover:text-white'
-              }`}
-            >
-              <span className="inline-block size-4 rounded-xs border border-current opacity-60" />
-              {tab}
-            </button>
-          ))}
-        </div>
-      </div>
+      <div className="bg-white px-6 pt-4 dark:bg-black">
+        <Tabs defaultValue="inventory" className="gap-4">
+          <TabsList className="h-10 w-fit gap-1 rounded-[6px] p-0.5">
+            {TABS.map(({ value, label, icon: Icon }) => (
+              <TabsTab key={value} value={value} className="px-3 text-sm">
+                <Icon className="size-4" />
+                {label}
+              </TabsTab>
+            ))}
+          </TabsList>
 
-      <div className="flex-1 bg-white p-6 dark:bg-black">
-        <div className="mb-4">
-          <h1 className="text-xl font-semibold text-zinc-900 dark:text-zinc-50">
-            Inventory
-          </h1>
-          <p className="text-sm text-zinc-500">Inventory + Sales Metrics</p>
-        </div>
+          <TabsPanels>
+            <TabsPanel value="inventory">
+              <div className="bg-white py-6 dark:bg-black">
+                <div className="mb-4">
+                  <h1 className="text-xl font-semibold text-zinc-900 dark:text-zinc-50">Inventory</h1>
+                  <p className="text-sm text-zinc-500">Inventory + Sales Metrics</p>
+                </div>
+                <InventoryTable data={rows} />
+              </div>
+            </TabsPanel>
 
-        <InventoryTable data={rows} />
+            {TABS.slice(1).map(({ value, label }) => (
+              <TabsPanel key={value} value={value}>
+                <div className="py-6">
+                  <EmptyPanel title={label} />
+                </div>
+              </TabsPanel>
+            ))}
+          </TabsPanels>
+        </Tabs>
       </div>
     </div>
   );
