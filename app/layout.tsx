@@ -2,11 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 import { AppSidebar } from "@/components/app-sidebar";
-import {
-  SidebarInset,
-  SidebarProvider,
-  SidebarTrigger,
-} from "@/components/animate-ui/components/radix/sidebar";
+import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/animate-ui/components/radix/sidebar";
 import { Separator } from "@/components/ui/separator";
 
 export const metadata: Metadata = {
@@ -27,7 +23,6 @@ export default function RootLayout({
           <SidebarInset>
             <header className="flex h-14 shrink-0 items-center gap-2 border-b px-4">
               <SidebarTrigger className="-ml-1" />
-              <Separator orientation="vertical" className="mr-2 h-4" />
               <span className="text-sm font-medium">Wine & Spirits CMS</span>
             </header>
             <div className="flex flex-1 flex-col">{children}</div>

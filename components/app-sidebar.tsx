@@ -3,12 +3,11 @@
 import * as React from 'react';
 import {
   Home,
-  Wine,
-  GlassWater,
   Package,
-  Users,
+  Calculator,
   Settings,
   LifeBuoy,
+  Wine,
 } from 'lucide-react';
 
 import {
@@ -33,10 +32,8 @@ type NavItem = {
 
 const mainNav: NavItem[] = [
   { title: 'Dashboard', url: '#', icon: Home },
-  { title: 'Wines', url: '#', icon: Wine },
-  { title: 'Spirits', url: '#', icon: GlassWater },
   { title: 'Inventory', url: '#', icon: Package },
-  { title: 'Customers', url: '#', icon: Users },
+  { title: 'Price Simulator', url: '#', icon: Calculator },
 ];
 
 const secondaryNav: NavItem[] = [
@@ -66,7 +63,11 @@ export function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
             <SidebarMenu>
               {mainNav.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild tooltip={item.title}>
+                  <SidebarMenuButton
+                    asChild
+                    tooltip={item.title}
+                    className="h-auto py-3"
+                  >
                     <a href={item.url}>
                       <item.icon />
                       <span>{item.title}</span>
@@ -83,7 +84,11 @@ export function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
             <SidebarMenu>
               {secondaryNav.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild tooltip={item.title}>
+                  <SidebarMenuButton
+                    asChild
+                    tooltip={item.title}
+                    className="h-auto py-3"
+                  >
                     <a href={item.url}>
                       <item.icon />
                       <span>{item.title}</span>
