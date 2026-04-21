@@ -8,8 +8,8 @@ import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/anim
 import { Separator } from "@/components/ui/separator";
 
 export const metadata: Metadata = {
-  title: "Wine & Spirits CMS",
-  description: "Wine & Spirits CMS",
+  title: "Wine & Spirits CRM",
+  description: "Wine & Spirits CRM",
 };
 
 export default function RootLayout({
@@ -26,7 +26,7 @@ export default function RootLayout({
             <SidebarInset className="min-w-0 overflow-x-hidden">
               <header className="flex h-14 shrink-0 items-center gap-2 border-b px-4">
                 <SidebarTrigger className="-ml-1" />
-                <span className="text-sm font-medium">Wine & Spirits CMS</span>
+                <span className="text-sm font-medium">Wine & Spirits CRM</span>
               </header>
               <div className="flex min-w-0 flex-1 flex-col">{children}</div>
             </SidebarInset>
