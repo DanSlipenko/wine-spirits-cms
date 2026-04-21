@@ -1,7 +1,9 @@
 "use client";
 
 import * as React from "react";
-import { Home, Package, Calculator, Settings, LifeBuoy, Wine } from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Home, Calculator, Settings, LifeBuoy, Wine } from "lucide-react";
 
 import {
   Sidebar,
@@ -24,17 +26,20 @@ type NavItem = {
 };
 
 const mainNav: NavItem[] = [
-  { title: "Dashboard", url: "#", icon: Home },
-  { title: "Inventory", url: "#", icon: Package },
-  { title: "Price Simulator", url: "#", icon: Calculator },
+  { title: "Dashboard", url: "/", icon: Home },
+  { title: "Price Simulator", url: "/price-simulator", icon: Calculator },
 ];
 
 const secondaryNav: NavItem[] = [
-  { title: "Settings", url: "#", icon: Settings },
-  { title: "Support", url: "#", icon: LifeBuoy },
+  { title: "Settings", url: "/settings", icon: Settings },
+  { title: "Support", url: "/support", icon: LifeBuoy },
 ];
 
 export function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
+  const pathname = usePathname();
+  const isActive = (url: string) =>
+    url === "/" ? pathname === "/" : pathname.startsWith(url);
+
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
@@ -56,11 +61,16 @@ export function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
             <SidebarMenu>
               {mainNav.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild tooltip={item.title} className="h-auto py-3">
-                    <a href={item.url}>
+                  <SidebarMenuButton
+                    asChild
+                    tooltip={item.title}
+                    isActive={isActive(item.url)}
+                    className="h-auto py-3"
+                  >
+                    <Link href={item.url}>
                       <item.icon strokeWidth={1.5} />
                       <span>{item.title}</span>
-                    </a>
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
@@ -73,11 +83,16 @@ export function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
             <SidebarMenu>
               {secondaryNav.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild tooltip={item.title} className="h-auto py-3">
-                    <a href={item.url}>
+                  <SidebarMenuButton
+                    asChild
+                    tooltip={item.title}
+                    isActive={isActive(item.url)}
+                    className="h-auto py-3"
+                  >
+                    <Link href={item.url}>
                       <item.icon strokeWidth={1.5} />
                       <span>{item.title}</span>
-                    </a>
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}

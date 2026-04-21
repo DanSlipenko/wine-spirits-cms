@@ -1,19 +1,42 @@
-import { LayoutGrid, Package, ShoppingCart, TrendingUp, Users, Calendar } from "lucide-react";
+import {
+  LayoutGrid,
+  Package,
+  ShoppingCart,
+  TrendingUp,
+  Users,
+  Calendar,
+} from 'lucide-react';
 
-import { connectToDatabase } from "@/lib/mongodb";
-import { Inventory } from "@/models";
-import { Tabs, TabsList, TabsTab, TabsPanels, TabsPanel } from "@/components/animate-ui/components/base/tabs";
-import { InventoryTable, type InventoryRow } from "@/components/inventory-table";
+import { connectToDatabase } from '@/lib/mongodb';
+import { Inventory } from '@/models';
+import {
+  Tabs,
+  TabsList,
+  TabsTab,
+  TabsPanels,
+  TabsPanel,
+} from '@/components/animate-ui/components/base/tabs';
+import {
+  InventoryTable,
+  type InventoryRow,
+} from '@/components/inventory-table';
+import {
+  getDashboardData,
+  formatCompact,
+  formatPct,
+} from '@/lib/dashboard-data';
+import { KpiCard } from '@/components/kpi-card';
+import { YoySalesChart } from '@/components/yoy-sales-chart';
 
-export const dynamic = "force-dynamic";
+export const dynamic = 'force-dynamic';
 
 const TABS = [
-  { value: "inventory", label: "Inventory", icon: Package },
-  { value: "open-sales-orders", label: "Open Sales Orders", icon: ShoppingCart },
-  { value: "yoy-by-item", label: "YoY Sales by Item", icon: TrendingUp },
-  { value: "yoy-by-customer", label: "YoY Sales by Customer", icon: Users },
-  { value: "yoy-by-month", label: "YoY Sales by Month", icon: Calendar },
-  { value: "monthly-depletions", label: "Monthly Depletions", icon: LayoutGrid },
+  { value: 'inventory', label: 'Inventory', icon: Package },
+  { value: 'open-sales-orders', label: 'Open Sales Orders', icon: ShoppingCart },
+  { value: 'yoy-by-item', label: 'YoY Sales by Item', icon: TrendingUp },
+  { value: 'yoy-by-customer', label: 'YoY Sales by Customer', icon: Users },
+  { value: 'yoy-by-month', label: 'YoY Sales by Month', icon: Calendar },
+  { value: 'monthly-depletions', label: 'Monthly Depletions', icon: LayoutGrid },
 ];
 
 async function getInventory(): Promise<InventoryRow[]> {
@@ -46,12 +69,59 @@ function EmptyPanel({ title }: { title: string }) {
   );
 }
 
-export default async function Home() {
-  const rows = await getInventory();
+export default async function DashboardPage() {
+  const [rows, dash] = await Promise.all([getInventory(), getDashboardData()]);
+  const { kpi, monthly, currentYear, lastYear } = dash;
+
+  const salesTone =
+    kpi.salesYoyAbs > 0 ? 'positive' : kpi.salesYoyAbs < 0 ? 'negative' : 'neutral';
+  const casesTone =
+    kpi.casesYoyAbs > 0 ? 'positive' : kpi.casesYoyAbs < 0 ? 'negative' : 'neutral';
 
   return (
     <div className="flex flex-1 flex-col bg-zinc-50 dark:bg-black">
-      <div className="bg-white px-6 pt-4 dark:bg-black">
+      {/* Dashboard KPIs + chart */}
+      <div className="flex flex-col gap-4 px-6 pt-6">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          <KpiCard
+            title="YTD Sales"
+            value={formatCompact(kpi.ytdSales)}
+            delta={formatCompact(kpi.lytdSales)}
+            deltaLabel="LYTD Sales"
+            deltaTone="neutral"
+          />
+          <KpiCard
+            title="Sales YoY Var"
+            value={formatCompact(kpi.salesYoyAbs)}
+            delta={formatPct(kpi.salesYoyPct)}
+            deltaLabel="Sales YoY Var %"
+            deltaTone={salesTone}
+          />
+          <KpiCard
+            title="YTD Cases"
+            value={formatCompact(kpi.ytdCases)}
+            delta={formatCompact(kpi.lytdCases)}
+            deltaLabel="LYTD Cases"
+            deltaTone="neutral"
+          />
+          <KpiCard
+            title="Cases YoY Var"
+            value={formatCompact(kpi.casesYoyAbs)}
+            delta={formatPct(kpi.casesYoyPct)}
+            deltaLabel="Cases YoY Var %"
+            deltaTone={casesTone}
+          />
+        </div>
+
+        <YoySalesChart
+          data={monthly}
+          currentYear={currentYear}
+          lastYear={lastYear}
+        />
+      </div>
+
+      {/* Inventory tabs */}
+      <div className="bg-white px-6 pt-6 pb-8 dark:bg-black">
         <Tabs defaultValue="inventory" className="gap-4">
           <TabsList className="h-10 w-fit gap-1 rounded-[6px] p-0.5">
             {TABS.map(({ value, label, icon: Icon }) => (
@@ -66,8 +136,12 @@ export default async function Home() {
             <TabsPanel value="inventory">
               <div className="bg-white py-6 dark:bg-black">
                 <div className="mb-4">
-                  <h1 className="text-xl font-semibold text-zinc-900 dark:text-zinc-50">Inventory</h1>
-                  <p className="text-sm text-zinc-500">Inventory + Sales Metrics</p>
+                  <h1 className="text-xl font-semibold text-zinc-900 dark:text-zinc-50">
+                    Inventory
+                  </h1>
+                  <p className="text-sm text-zinc-500">
+                    Inventory + Sales Metrics
+                  </p>
                 </div>
                 <InventoryTable data={rows} />
               </div>
