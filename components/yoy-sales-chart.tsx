@@ -65,21 +65,21 @@ export function YoySalesChart({
             <Bar dataKey="currentYearSales" name={`${currentYear}`} fill={BLUE} radius={[2, 2, 0, 0]}>
               <LabelList
                 dataKey="currentYearSales"
-                position="insideTop"
+                position="insideBottom"
                 angle={-90}
-                offset={20}
+                offset={50}
                 formatter={(v) => (v ? formatDollars(Number(v)) : "")}
-                style={{ fill: "#fff", fontSize: 10, fontWeight: 500 }}
+                style={{ fill: "#fff", fontSize: 13, fontWeight: 600 }}
               />
             </Bar>
             <Bar dataKey="lastYearSales" name={`${lastYear}`} fill={BLUE_LIGHT} radius={[2, 2, 0, 0]}>
               <LabelList
                 dataKey="lastYearSales"
-                position="top"
+                position="insideBottom"
                 angle={-90}
-                offset={28}
+                offset={50}
                 formatter={(v) => (v ? formatDollars(Number(v)) : "")}
-                style={{ fill: "#374151", fontSize: 10, fontWeight: 500 }}
+                style={{ fill: "#1e3a8a", fontSize: 13, fontWeight: 600 }}
               />
             </Bar>
           </BarChart>

@@ -1,42 +1,22 @@
-import {
-  LayoutGrid,
-  Package,
-  ShoppingCart,
-  TrendingUp,
-  Users,
-  Calendar,
-} from 'lucide-react';
+import { LayoutGrid, Package, ShoppingCart, TrendingUp, Users, Calendar } from "lucide-react";
 
-import { connectToDatabase } from '@/lib/mongodb';
-import { Inventory } from '@/models';
-import {
-  Tabs,
-  TabsList,
-  TabsTab,
-  TabsPanels,
-  TabsPanel,
-} from '@/components/animate-ui/components/base/tabs';
-import {
-  InventoryTable,
-  type InventoryRow,
-} from '@/components/inventory-table';
-import {
-  getDashboardData,
-  formatCompact,
-  formatPct,
-} from '@/lib/dashboard-data';
-import { KpiCard } from '@/components/kpi-card';
-import { YoySalesChart } from '@/components/yoy-sales-chart';
+import { connectToDatabase } from "@/lib/mongodb";
+import { Inventory } from "@/models";
+import { Tabs, TabsList, TabsTab, TabsPanels, TabsPanel } from "@/components/animate-ui/components/base/tabs";
+import { InventoryTable, type InventoryRow } from "@/components/inventory-table";
+import { getDashboardData, formatCompact, formatPct } from "@/lib/dashboard-data";
+import { KpiCard } from "@/components/kpi-card";
+import { YoySalesChart } from "@/components/yoy-sales-chart";
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
 const TABS = [
-  { value: 'inventory', label: 'Inventory', icon: Package },
-  { value: 'open-sales-orders', label: 'Open Sales Orders', icon: ShoppingCart },
-  { value: 'yoy-by-item', label: 'YoY Sales by Item', icon: TrendingUp },
-  { value: 'yoy-by-customer', label: 'YoY Sales by Customer', icon: Users },
-  { value: 'yoy-by-month', label: 'YoY Sales by Month', icon: Calendar },
-  { value: 'monthly-depletions', label: 'Monthly Depletions', icon: LayoutGrid },
+  { value: "inventory", label: "Inventory", icon: Package },
+  { value: "open-sales-orders", label: "Open Sales Orders", icon: ShoppingCart },
+  { value: "yoy-by-item", label: "YoY Sales by Item", icon: TrendingUp },
+  { value: "yoy-by-customer", label: "YoY Sales by Customer", icon: Users },
+  { value: "yoy-by-month", label: "YoY Sales by Month", icon: Calendar },
+  { value: "monthly-depletions", label: "Monthly Depletions", icon: LayoutGrid },
 ];
 
 async function getInventory(): Promise<InventoryRow[]> {
@@ -74,14 +54,18 @@ export default async function DashboardPage() {
   const { kpi, monthly, currentYear, lastYear } = dash;
 
   const salesTone =
-    kpi.salesYoyAbs > 0 ? 'positive' : kpi.salesYoyAbs < 0 ? 'negative' : 'neutral';
+    kpi.salesYoyAbs > 0 ? "positive"
+    : kpi.salesYoyAbs < 0 ? "negative"
+    : "neutral";
   const casesTone =
-    kpi.casesYoyAbs > 0 ? 'positive' : kpi.casesYoyAbs < 0 ? 'negative' : 'neutral';
+    kpi.casesYoyAbs > 0 ? "positive"
+    : kpi.casesYoyAbs < 0 ? "negative"
+    : "neutral";
 
   return (
     <div className="flex min-w-0 flex-1 flex-col bg-zinc-50 dark:bg-black">
       {/* Dashboard KPIs + chart */}
-      <div className="flex min-w-0 flex-col gap-4 px-6 pt-6">
+      <div className="flex min-w-0 flex-col gap-4 p-6">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
           <KpiCard
             title="YTD Sales"
@@ -113,11 +97,7 @@ export default async function DashboardPage() {
           />
         </div>
 
-        <YoySalesChart
-          data={monthly}
-          currentYear={currentYear}
-          lastYear={lastYear}
-        />
+        <YoySalesChart data={monthly} currentYear={currentYear} lastYear={lastYear} />
       </div>
 
       {/* Inventory tabs */}
@@ -136,12 +116,8 @@ export default async function DashboardPage() {
             <TabsPanel value="inventory">
               <div className="min-w-0 bg-white py-6 dark:bg-black">
                 <div className="mb-4">
-                  <h1 className="text-xl font-semibold text-zinc-900 dark:text-zinc-50">
-                    Inventory
-                  </h1>
-                  <p className="text-sm text-zinc-500">
-                    Inventory + Sales Metrics
-                  </p>
+                  <h1 className="text-xl font-semibold text-zinc-900 dark:text-zinc-50">Inventory</h1>
+                  <p className="text-sm text-zinc-500">Inventory + Sales Metrics</p>
                 </div>
                 <div className="w-full overflow-hidden rounded-md">
                   <InventoryTable data={rows} />

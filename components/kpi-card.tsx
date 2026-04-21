@@ -21,18 +21,18 @@ export function KpiCard({ title, value, delta, deltaLabel, deltaTone = "neutral"
   return (
     <div
       className={cn(
-        "flex min-h-[110px] flex-col items-center justify-center rounded-sm border bg-white px-6 py-4 text-center  dark:border-zinc-800 dark:bg-zinc-950",
+        "flex min-h-[125px] flex-col items-center justify-center rounded-sm border bg-white px-6 py-4 text-center  dark:border-zinc-800 dark:bg-zinc-950",
         className,
       )}>
-      <div className="text-sm font-medium text-zinc-600 dark:text-zinc-400">{title}</div>
-      <div className="mt-2 flex items-start gap-1">
-        <span className="text-3xl font-semibold leading-none tracking-tight" style={{ color: BLUE }}>
+      <div className="text-base font-medium text-zinc-600 dark:text-zinc-400">{title}</div>
+      <div className="mt-5 flex items-start gap-1">
+        <span className="text-4xl font-semibold leading-none tracking-tight" style={{ color: BLUE }}>
           {value}
         </span>
         {delta && (
-          <span className={cn("flex flex-col text-[11px] leading-tight", deltaColor)}>
+          <span className={cn("flex flex-col text-sm leading-tight", deltaColor)}>
             <span className="font-semibold">{delta}</span>
-            {deltaLabel && <span className="text-[10px] text-zinc-500 dark:text-zinc-500">{deltaLabel}</span>}
+            {deltaLabel && <span className="text-sm text-zinc-500 dark:text-zinc-500">{deltaLabel}</span>}
           </span>
         )}
       </div>
