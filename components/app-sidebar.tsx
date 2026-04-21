@@ -1,14 +1,7 @@
-'use client';
+"use client";
 
-import * as React from 'react';
-import {
-  Home,
-  Package,
-  Calculator,
-  Settings,
-  LifeBuoy,
-  Wine,
-} from 'lucide-react';
+import * as React from "react";
+import { Home, Package, Calculator, Settings, LifeBuoy, Wine } from "lucide-react";
 
 import {
   Sidebar,
@@ -22,23 +15,23 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarRail,
-} from '@/components/animate-ui/components/radix/sidebar';
+} from "@/components/animate-ui/components/radix/sidebar";
 
 type NavItem = {
   title: string;
   url: string;
-  icon: React.ComponentType<{ className?: string }>;
+  icon: React.ComponentType<{ className?: string; strokeWidth?: number }>;
 };
 
 const mainNav: NavItem[] = [
-  { title: 'Dashboard', url: '#', icon: Home },
-  { title: 'Inventory', url: '#', icon: Package },
-  { title: 'Price Simulator', url: '#', icon: Calculator },
+  { title: "Dashboard", url: "#", icon: Home },
+  { title: "Inventory", url: "#", icon: Package },
+  { title: "Price Simulator", url: "#", icon: Calculator },
 ];
 
 const secondaryNav: NavItem[] = [
-  { title: 'Settings', url: '#', icon: Settings },
-  { title: 'Support', url: '#', icon: LifeBuoy },
+  { title: "Settings", url: "#", icon: Settings },
+  { title: "Support", url: "#", icon: LifeBuoy },
 ];
 
 export function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
@@ -46,8 +39,8 @@ export function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
         <div className="flex items-center gap-2 px-2 py-1.5">
-          <div className="flex size-8 items-center justify-center rounded-md bg-primary text-primary-foreground">
-            <Wine className="size-4" />
+          <div className="flex size-8 items-center justify-center rounded-sm bg-primary text-primary-foreground">
+            <Wine className="size-4" strokeWidth={1.5} />
           </div>
           <div className="flex flex-col text-sm leading-tight group-data-[collapsible=icon]:hidden">
             <span className="font-semibold">Wine & Spirits</span>
@@ -58,18 +51,14 @@ export function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
 
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Catalog</SidebarGroupLabel>
+          <SidebarGroupLabel>CATALOG</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {mainNav.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton
-                    asChild
-                    tooltip={item.title}
-                    className="h-auto py-3"
-                  >
+                  <SidebarMenuButton asChild tooltip={item.title} className="h-auto py-3">
                     <a href={item.url}>
-                      <item.icon />
+                      <item.icon strokeWidth={1.5} />
                       <span>{item.title}</span>
                     </a>
                   </SidebarMenuButton>
@@ -84,13 +73,9 @@ export function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
             <SidebarMenu>
               {secondaryNav.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton
-                    asChild
-                    tooltip={item.title}
-                    className="h-auto py-3"
-                  >
+                  <SidebarMenuButton asChild tooltip={item.title} className="h-auto py-3">
                     <a href={item.url}>
-                      <item.icon />
+                      <item.icon strokeWidth={1.5} />
                       <span>{item.title}</span>
                     </a>
                   </SidebarMenuButton>
@@ -102,9 +87,7 @@ export function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
       </SidebarContent>
 
       <SidebarFooter>
-        <div className="flex items-center gap-2 px-2 py-1.5 text-xs text-muted-foreground group-data-[collapsible=icon]:hidden">
-          v0.1.0
-        </div>
+        <div className="flex items-center gap-2 px-2 py-1.5 text-xs text-muted-foreground group-data-[collapsible=icon]:hidden">v0.1.0</div>
       </SidebarFooter>
 
       <SidebarRail />
