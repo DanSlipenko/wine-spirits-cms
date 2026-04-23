@@ -21,7 +21,7 @@ export function KpiCard({ title, value, delta, deltaLabel, deltaTone = "neutral"
   return (
     <div
       className={cn(
-        "flex min-h-[125px] flex-col items-center justify-center rounded-sm border bg-white px-6 py-4 text-center  dark:border-zinc-800 dark:bg-zinc-950",
+        "flex min-h-[125px] flex-col items-center justify-center rounded-4xl shadow-primary bg-white px-6 py-6 text-center",
         className,
       )}>
       <div className="text-base font-medium text-zinc-600 dark:text-zinc-400">{title}</div>

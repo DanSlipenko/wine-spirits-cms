@@ -6,6 +6,8 @@ import {
   TabsTab as TabsTabPrimitive,
   TabsPanel as TabsPanelPrimitive,
   TabsPanels as TabsPanelsPrimitive,
+  TabsHighlight as TabsHighlightPrimitive,
+  TabsHighlightItem as TabsHighlightItemPrimitive,
   type TabsProps as TabsPrimitiveProps,
   type TabsListProps as TabsListPrimitiveProps,
   type TabsTabProps as TabsTabPrimitiveProps,
@@ -20,28 +22,39 @@ function Tabs({ className, ...props }: TabsProps) {
   return <TabsPrimitive className={cn("flex flex-col gap-2", className)} {...props} />;
 }
 
-type TabsListProps = TabsListPrimitiveProps;
+type TabsListProps = TabsListPrimitiveProps & {
+  activeClassName?: string;
+};
 
-function TabsList({ className, ...props }: TabsListProps) {
+function TabsList({ className, activeClassName, children, ...props }: TabsListProps) {
   return (
     <TabsListPrimitive
-      className={cn("bg-muted text-muted-foreground inline-flex h-9 w-fit items-center justify-center rounded-lg p-[3px]", className)}
-      {...props}
-    />
+      className={cn("bg-gray-100 text-muted-foreground inline-flex h-9 w-fit items-center justify-center rounded-lg p-[3px]", className)}
+      {...props}>
+      <TabsHighlightPrimitive className={cn("bg-white shadow-primary rounded-full inset-0", activeClassName)}>
+        {children}
+      </TabsHighlightPrimitive>
+    </TabsListPrimitive>
   );
 }
 
-type TabsTabProps = TabsTabPrimitiveProps;
+type TabsTabProps = TabsTabPrimitiveProps & {
+  value: string;
+};
 
-function TabsTab({ className, ...props }: TabsTabProps) {
+function TabsTab({ className, value, children, ...props }: TabsTabProps) {
   return (
-    <TabsTabPrimitive
-      className={cn(
-        "data-[selected]:text-foreground focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring text-muted-foreground inline-flex h-[calc(100%-1px)] flex-1 items-center justify-center gap-1.5 rounded-md w-full px-2 py-2 text-sm font-medium whitespace-nowrap transition-colors duration-500 ease-in-out focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none cursor-pointer hover:text-zinc-900 disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
-        className,
-      )}
-      {...props}
-    />
+    <TabsHighlightItemPrimitive value={value} className="w-full">
+      <TabsTabPrimitive
+        value={value}
+        className={cn(
+          "data-[selected]:text-foreground focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring text-muted-foreground inline-flex h-[calc(100%-1px)] flex-1 items-center justify-center gap-1.5 rounded-md w-full px-2 py-2 text-sm font-medium whitespace-nowrap transition-colors duration-500 ease-in-out focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none cursor-pointer hover:text-zinc-900 disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+          className,
+        )}
+        {...props}>
+        {children}
+      </TabsTabPrimitive>
+    </TabsHighlightItemPrimitive>
   );
 }
 

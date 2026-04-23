@@ -36,7 +36,7 @@ export function YoySalesChart({
   height?: number;
 }) {
   return (
-    <div className="rounded-sm border bg-white p-4 dark:border-zinc-800 dark:bg-zinc-950">
+    <div className="rounded-4xl shadow-primary bg-white p-6">
       <div className="mb-3 flex items-center justify-between">
         <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-50">YoY Sales Trend</h3>
         <div className="flex items-center gap-3 text-xs text-zinc-600 dark:text-zinc-400">

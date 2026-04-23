@@ -102,8 +102,8 @@ export default async function DashboardPage() {
 
       {/* Inventory tabs */}
       <div className="min-w-0 bg-white px-6 pt-6 pb-8 dark:bg-black">
-        <Tabs defaultValue="inventory" className="min-w-0 gap-4">
-          <TabsList className="h-10 w-fit gap-1 rounded-[6px] p-0.5">
+        <Tabs defaultValue="inventory" className="min-w-0 gap-4 rounded-4xl shadow-primary p-6">
+          <TabsList className="h-11 w-fit gap-1 rounded-full p-1">
             {TABS.map(({ value, label, icon: Icon }) => (
               <TabsTab key={value} value={value} className="px-3 text-sm">
                 <Icon className="size-4" />
@@ -112,9 +112,9 @@ export default async function DashboardPage() {
             ))}
           </TabsList>
 
-          <TabsPanels>
+          <TabsPanels className="rounded-4xl p-6">
             <TabsPanel value="inventory">
-              <div className="min-w-0 bg-white py-6 dark:bg-black">
+              <div className="min-w-0 bg-white dark:bg-black">
                 <div className="mb-4">
                   <h1 className="text-xl font-semibold text-zinc-900 dark:text-zinc-50">Inventory</h1>
                   <p className="text-sm text-zinc-500">Inventory + Sales Metrics</p>
