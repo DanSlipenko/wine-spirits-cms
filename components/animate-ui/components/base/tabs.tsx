@@ -6,8 +6,6 @@ import {
   TabsTab as TabsTabPrimitive,
   TabsPanel as TabsPanelPrimitive,
   TabsPanels as TabsPanelsPrimitive,
-  TabsHighlight as TabsHighlightPrimitive,
-  TabsHighlightItem as TabsHighlightItemPrimitive,
   type TabsProps as TabsPrimitiveProps,
   type TabsListProps as TabsListPrimitiveProps,
   type TabsTabProps as TabsTabPrimitiveProps,
@@ -26,12 +24,10 @@ type TabsListProps = TabsListPrimitiveProps;
 
 function TabsList({ className, ...props }: TabsListProps) {
   return (
-    <TabsHighlightPrimitive className="absolute z-0 inset-0 border-2 border-gray-100 rounded-sm bg-white dark:border-input dark:bg-input/30">
-      <TabsListPrimitive
-        className={cn("bg-muted text-muted-foreground inline-flex h-9 w-fit items-center justify-center rounded-lg p-[3px]", className)}
-        {...props}
-      />
-    </TabsHighlightPrimitive>
+    <TabsListPrimitive
+      className={cn("bg-muted text-muted-foreground inline-flex h-9 w-fit items-center justify-center rounded-lg p-[3px]", className)}
+      {...props}
+    />
   );
 }
 
@@ -39,15 +35,13 @@ type TabsTabProps = TabsTabPrimitiveProps;
 
 function TabsTab({ className, ...props }: TabsTabProps) {
   return (
-    <TabsHighlightItemPrimitive value={props.value} className="flex-1">
-      <TabsTabPrimitive
-        className={cn(
-          "data-[selected]:text-foreground focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring text-muted-foreground inline-flex h-[calc(100%-1px)] flex-1 items-center justify-center gap-1.5 rounded-md w-full px-2 py-2 text-sm font-medium whitespace-nowrap transition-colors duration-500 ease-in-out focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none cursor-pointer hover:text-zinc-900 disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
-          className,
-        )}
-        {...props}
-      />
-    </TabsHighlightItemPrimitive>
+    <TabsTabPrimitive
+      className={cn(
+        "data-[selected]:text-foreground focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring text-muted-foreground inline-flex h-[calc(100%-1px)] flex-1 items-center justify-center gap-1.5 rounded-md w-full px-2 py-2 text-sm font-medium whitespace-nowrap transition-colors duration-500 ease-in-out focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none cursor-pointer hover:text-zinc-900 disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        className,
+      )}
+      {...props}
+    />
   );
 }
 
